@@ -18,7 +18,8 @@ const AuthState = (props) => {
   const [singleDoc, setSingleDoc] = useState([]);
   const [ImageGallery, setImageGallery] = useState();
   const [imageSaveHosp, setImageSave] = useState();
-  const url = "http://164.92.107.25:2300";
+  // const url = "http://164.92.107.25:2300";
+  const url = "http://127.0.0.1:2300";
   function addHospital(id, fullName, address, image) {
     const formData = new FormData();
     formData.append("name", fullName);
@@ -94,10 +95,7 @@ const AuthState = (props) => {
     console.log(image);
     formData.append("picture", image);
     axios
-      .patch(
-        `http://164.92.107.25:2300/api/v1/hospital/imageUpload/${Id}`,
-        formData
-      )
+      .patch(`${url}/api/v1/hospital/imageUpload/${Id}`, formData)
       .then((res) => {
         console.log(res.data.data);
         setImageSave(res.data.data);
@@ -224,6 +222,7 @@ const AuthState = (props) => {
       .get(`${url}/api/v1/hospital/`)
       .then((response) => {
         const allHospital = response.data;
+
         console.log(allHospital.data);
         localStorage.setItem("HospData", JSON.stringify(allHospital));
       })
